@@ -25,11 +25,11 @@ docker run -d --name redis-slave2 \
     redis redis-server --slaveof $REDIS_MASTER_IP 6379 --requirepass "20f299a1f5ac2974" --masterauth "20f299a1f5ac2974"
 
 # 创建配置目录
-mkdir -p runtime/sentinel{1,2,3}
+mkdir -p $(dirname $0)/../runtime/sentinel{1,2,3}
 
 # 为每个sentinel创建配置
 for i in {1..3}; do
-    cat <<EOF > runtime/sentinel$i/sentinel.conf
+    cat <<EOF > $(dirname $0)/../runtime/sentinel$i/sentinel.conf
 port 26379
 dir "/data"
 sentinel monitor mymaster $REDIS_MASTER_IP 6379 1
@@ -42,13 +42,13 @@ EOF
 done
 
 # 设置目录权限
-chmod -R 777 runtime/
+chmod -R 777 $(dirname $0)/../runtime/
 
 # 运行 Sentinel 节点
 docker run -d --name sentinel1 \
     --network redis-sentinel-network \
     --hostname sentinel1 \
-    -v $(pwd)/runtime/sentinel1:/data \
+    -v $(dirname $0)/../runtime/sentinel1:/data \
     -p 26379:26379 \
     -p 16379:16379 \
     --add-host redis-master:$REDIS_MASTER_IP \
@@ -57,7 +57,7 @@ docker run -d --name sentinel1 \
 docker run -d --name sentinel2 \
     --network redis-sentinel-network \
     --hostname sentinel2 \
-    -v $(pwd)/runtime/sentinel2:/data \
+    -v $(dirname $0)/../runtime/sentinel2:/data \
     -p 26380:26379 \
     --add-host redis-master:$REDIS_MASTER_IP \
     redis redis-sentinel /data/sentinel.conf --sentinel
@@ -65,10 +65,8 @@ docker run -d --name sentinel2 \
 docker run -d --name sentinel3 \
     --network redis-sentinel-network \
     --hostname sentinel3 \
-    -v $(pwd)/runtime/sentinel3:/data \
+    -v $(dirname $0)/../runtime/sentinel3:/data \
     -p 26381:26379 \
     --add-host redis-master:$REDIS_MASTER_IP \
     redis redis-sentinel /data/sentinel.conf --sentinel
 
-# 验证部署
-docker ps
