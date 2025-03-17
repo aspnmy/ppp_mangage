@@ -54,7 +54,7 @@ function uninstall_redis_sentinel() {
 # 卸载PPP_mangage
 function uninstall_PPP_mangage() {
     echo "开始卸载PPP_mangage..."
-    killall ppp_mangage
+    sudo pkill -9 -f ppp_mangage
     rm -f ppp_mangage
     echo "PPP_mangage卸载完成"
     show_menu
