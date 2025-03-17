@@ -1,4 +1,4 @@
-module github.com/aspnmy/openppp2/tree/dev_up_boost/go
+module ppp_mangage
 
 go 1.24.0
 

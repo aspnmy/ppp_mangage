@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
-	"os"
-	"os/signal"
-	"github.com/aspnmy/openppp2/tree/dev_up_boost/go/ppp/auxiliary"
-	"github.com/aspnmy/openppp2/tree/dev_up_boost/go/ppp/ppp"
+    "log"
+    "os"
+    "os/signal"
+    "ppp_mangage/auxiliary"  // 使用模块路径导入
+    "ppp_mangage/ppp"       // 使用模块路径导入
 )
 
 var LOG_ERROR *log.Logger = auxiliary.LOG_ERROR()

@@ -1,10 +1,10 @@
 package ppp
 
 import (
+	"ppp_mangage/auxiliary"  // 使用模块路径导入
+	"ppp_mangage/io"
 	"log"
 	"os"
-	"ppp/auxiliary"
-	"ppp/io"
 )
 
 type DBNodeConfiguration struct {
