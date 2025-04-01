@@ -2,7 +2,7 @@ package ppp
 
 import (
 	"fmt"
-	"ppp_mangage/io"
+	"ppp/io"
 	"strconv"
 	"strings"
 )

@@ -1,7 +1,7 @@
 package ppp
 
 import (
-	"ppp_mangage/io"
+	"ppp/io"
 	"time"
 )
 
